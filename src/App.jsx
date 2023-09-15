@@ -10,6 +10,7 @@ const App = () => {
   const [tours, setTours] = useState([]);
 
   const fetchTours = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -18,7 +19,6 @@ const App = () => {
         return;
       }
       const toursList = await response.json();
-      // console.log(toursList);
       setTours(toursList);
     } catch (error) {
       setIsError(true);
@@ -34,9 +34,9 @@ const App = () => {
   if (isLoading) {
     return (
       <>
-        <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <main>
           <Loading />
-        </div>
+        </main>
       </>
     )
   }
@@ -47,8 +47,14 @@ const App = () => {
 
   return (
     <>
-      <Tours tourList={tours} setTours={setTours}/>
-      <button type="button" className="btn" onClick={fetchTours}>Re-fetch</button>
+      <main>
+        {tours.length > 0 ? <Tours tourList={tours} setTours={setTours} /> :
+          <div className="title">
+            <h2>No tours left</h2>
+            <div className="title-underline"></div>
+            <button type="button" className="btn" onClick={fetchTours} style={{marginTop: '30px'}}>Refresh</button>
+          </div>}
+      </main>
     </>
   );
 };

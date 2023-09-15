@@ -11,13 +11,17 @@ const Tours = (props) => {
 
     return (
         <>
-            <main>
-                <ul>
+            <section>
+                <div className="title">
+                    <h2>Our Tours</h2>
+                    <div className="title-underline"></div>
+                </div>
+                <div className="tours">
                     {props.tourList && props.tourList.map((tour) => {
                         return <Tour {...tour} key={tour.id} deleteTour={deleteTour} />
                     })}
-                </ul>
-            </main>
+                </div>
+            </section>
         </>
     )
 }
